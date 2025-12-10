@@ -2,23 +2,32 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { usePlayerStore } from "../store/playerStore";
-import { getClientId } from "../utils/clientId";
-
 import { GameContainer } from "../styled/GameContainer";
 import { Input } from "../styled/Input";
 import { Button } from "../styled/Button";
 
 export default function StartPage() {
-  const [name, setName] = useState("");
   const { theme } = useContext(ThemeContext);
+  const [name, setName] = useState("");
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const setPlayer = usePlayerStore(s => s.setPlayer);
+  const setPlayer = usePlayerStore((state) => state.setPlayer);
 
-  const start = () => {
+  const handleStart = () => {
     if (!name) return;
-    const id = getClientId();
-    setPlayer(id, name, "bot");
-    navigate(`/game/${id}`);
+    const userId = "demo";
+    setPlayer(userId, name, "bot");
+    navigate(`/game/${userId}`);
+  };
+
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    alert(`Ім'я: ${contactName}\nEmail: ${contactEmail}\nПовідомлення: ${message}`);
+    setContactName("");
+    setContactEmail("");
+    setMessage("");
   };
 
   return (
@@ -29,20 +38,41 @@ export default function StartPage() {
         themeMode={theme}
         value={name}
         placeholder="Нік"
-        onChange={e => setName(e.target.value)}
+        onChange={(e) => setName(e.target.value)}
       />
-
-      <Button themeMode={theme} onClick={start}>
+      <Button themeMode={theme} onClick={handleStart}>
         Почати гру
       </Button>
 
-      <Button themeMode={theme} onClick={() => navigate("/results")}>
-        Таблиця результатів
-      </Button>
-
-      <Button themeMode={theme} onClick={() => navigate("/settings")}>
-        Налаштування гри
-      </Button>
+      <div style={{ marginTop: "40px", width: "100%", maxWidth: "400px" }}>
+        <h3>Контактна форма</h3>
+        <form onSubmit={handleContactSubmit}>
+          <Input
+            themeMode={theme}
+            value={contactName}
+            placeholder="Ім'я"
+            onChange={(e) => setContactName(e.target.value)}
+            style={{ marginBottom: "10px" }}
+          />
+          <Input
+            themeMode={theme}
+            value={contactEmail}
+            placeholder="Email"
+            onChange={(e) => setContactEmail(e.target.value)}
+            style={{ marginBottom: "10px" }}
+          />
+          <Input
+            themeMode={theme}
+            value={message}
+            placeholder="Повідомлення"
+            onChange={(e) => setMessage(e.target.value)}
+            style={{ marginBottom: "10px" }}
+          />
+          <Button themeMode={theme} type="submit">
+            Відправити
+          </Button>
+        </form>
+      </div>
     </GameContainer>
   );
 }
