@@ -3,5 +3,15 @@
     "id": "f6ae5af5-a350-485d-8807-50ea51a7d62e",
     "name": "123123",
     "wins": 13
+  },
+  {
+    "id": "demo",
+    "name": "123",
+    "wins": 1
+  },
+  {
+    "id": null,
+    "name": "",
+    "wins": 1
   }
 ]

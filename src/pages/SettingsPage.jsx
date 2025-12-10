@@ -1,22 +1,21 @@
-import React, { useContext } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
+import React from "react";
+import { useSettingsStore } from "../store/settingsStore";
 import { GameContainer } from "../styled/GameContainer";
+import { Button } from "../styled/Button";
 
 export default function SettingsPage() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme, toggleTheme } = useSettingsStore();
 
   return (
     <GameContainer themeMode={theme}>
-      <h2>Налаштування</h2>
+      <h2>Налаштування гри</h2>
 
-      <label style={{ cursor: "pointer" }}>
-        <input
-          type="checkbox"
-          checked={theme === "dark"}
-          onChange={toggleTheme}
-        />{" "}
-        Темна тема
-      </label>
+      <div>
+        <label>
+          <input type="checkbox" checked={theme === "dark"} onChange={toggleTheme} />
+          Темна тема
+        </label>
+      </div>
     </GameContainer>
   );
 }

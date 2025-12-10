@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
 import { GameContainer } from "../styled/GameContainer";
 import { Table } from "../styled/Table";
 import { usePlayers } from "../hooks/usePlayers";
+import { useSettingsStore } from "../store/settingsStore";
 
 export default function ResultsPage() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useSettingsStore();
   const { players, loading, error } = usePlayers();
 
   return (

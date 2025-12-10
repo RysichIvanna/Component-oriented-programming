@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { useSettingsStore } from "../store/settingsStore";
 import { GameContainer } from "../styled/GameContainer";
 import { Board } from "../styled/Board";
 import { Cell } from "../styled/Cell";
@@ -11,7 +11,7 @@ import { useSaveWin } from "../hooks/useSaveWin";
 import { useBotMove } from "../hooks/useBotMove";
 
 export default function GamePage() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useSettingsStore();
   const { player1, userId } = usePlayerStore();
 
   const [board, setBoard] = useState(Array(9).fill(null));

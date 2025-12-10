@@ -1,13 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ThemeContext } from "../contexts/ThemeContext";
 import { usePlayerStore } from "../store/playerStore";
 import { GameContainer } from "../styled/GameContainer";
 import { Input } from "../styled/Input";
 import { Button } from "../styled/Button";
+import { getClientId } from "../utils/clientId";
+import { useSettingsStore } from "../store/settingsStore";
 
 export default function StartPage() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useSettingsStore();
   const [name, setName] = useState("");
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
@@ -17,8 +18,8 @@ export default function StartPage() {
 
   const handleStart = () => {
     if (!name) return;
-    const userId = "demo";
-    setPlayer(userId, name, "bot");
+    const userId = getClientId();
+    setPlayer(userId, name);
     navigate(`/game/${userId}`);
   };
 
@@ -43,6 +44,15 @@ export default function StartPage() {
       <Button themeMode={theme} onClick={handleStart}>
         Почати гру
       </Button>
+
+      <div style={{ marginTop: "20px", display: "flex", gap: "10px" }}>
+        <Button themeMode={theme} onClick={() => navigate("/results")}>
+          Таблиця результатів
+        </Button>
+        <Button themeMode={theme} onClick={() => navigate("/settings")}>
+          Налаштування гри
+        </Button>
+      </div>
 
       <div style={{ marginTop: "40px", width: "100%", maxWidth: "400px" }}>
         <h3>Контактна форма</h3>

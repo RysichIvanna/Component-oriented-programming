@@ -5,10 +5,10 @@ import GamePage from "./pages/GamePage";
 import ResultsPage from "./pages/ResultsPage";
 import SettingsPage from "./pages/SettingsPage";
 import { GlobalStyle } from "./styled/GlobalStyle";
-import { ThemeContext } from "./contexts/ThemeContext";
+import { useSettingsStore } from "./store/settingsStore";
 
 function App() {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useSettingsStore();
 
   return (
     <>

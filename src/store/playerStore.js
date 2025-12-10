@@ -3,11 +3,10 @@ import { create } from "zustand";
 export const usePlayerStore = create((set) => ({
   userId: null,
   player1: "",
-  mode: "bot",
   
-  setPlayer: (userId, player1, mode = "bot") =>
-    set({ userId, player1, mode }),
+  setPlayer: (userId, player1) =>
+    set({ userId, player1 }),
 
   resetPlayer: () =>
-    set({ userId: null, player1: "", mode: "bot" }),
+    set({ userId: null, player1: "" }),
 }));

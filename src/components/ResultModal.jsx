@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { useSettingsStore } from "../store/settingsStore";
+
 
 import { ModalOverlay, ModalBox } from "../styled/Modal";
 import { Button } from "../styled/Button";
 
 export default function ResultModal({ winner, onRestart }) {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useSettingsStore();
 
   return (
     <ModalOverlay>
