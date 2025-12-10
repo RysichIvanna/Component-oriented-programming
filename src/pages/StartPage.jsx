@@ -1,49 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { getClientId } from "../utils/clientId";
+import { ThemeContext } from "../contexts/ThemeContext";
 import { usePlayerStore } from "../store/playerStore";
+import { getClientId } from "../utils/clientId";
+
+import { GameContainer } from "../styled/GameContainer";
+import { Input } from "../styled/Input";
+import { Button } from "../styled/Button";
 
 export default function StartPage() {
   const [name, setName] = useState("");
+  const { theme } = useContext(ThemeContext);
   const navigate = useNavigate();
-  const setPlayer = usePlayerStore((state) => state.setPlayer);
+  const setPlayer = usePlayerStore(s => s.setPlayer);
 
-  const handleStart = () => {
+  const start = () => {
     if (!name) return;
-
-    const userId = getClientId();
-    setPlayer(userId, name, "bot");
-    navigate(`/game/${userId}`);
+    const id = getClientId();
+    setPlayer(id, name, "bot");
+    navigate(`/game/${id}`);
   };
 
   return (
-    <div className="game-container">
+    <GameContainer themeMode={theme}>
       <h2>Гра проти бота</h2>
-      <input
-        type="text"
-        placeholder="Нік 1"
+
+      <Input
+        themeMode={theme}
         value={name}
-        onChange={(e) => setName(e.target.value)}
+        placeholder="Нік"
+        onChange={e => setName(e.target.value)}
       />
-      <button className="button" onClick={handleStart}>
+
+      <Button themeMode={theme} onClick={start}>
         Почати гру
-      </button>
+      </Button>
 
-      <button
-        className="button"
-        style={{ marginTop: "20px" }}
-        onClick={() => navigate("/results")}
-      >
+      <Button themeMode={theme} onClick={() => navigate("/results")}>
         Таблиця результатів
-      </button>
+      </Button>
 
-      <button
-        className="button"
-        style={{ marginTop: "10px" }}
-        onClick={() => navigate("/settings")}
-      >
+      <Button themeMode={theme} onClick={() => navigate("/settings")}>
         Налаштування гри
-      </button>
-    </div>
+      </Button>
+    </GameContainer>
   );
 }

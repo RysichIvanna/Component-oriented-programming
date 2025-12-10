@@ -1,68 +1,78 @@
-import React, { useState, useEffect } from "react";
-import { usePlayerStore } from "../store/playerStore";
+import React, { useContext, useState, useEffect } from "react";
+import { ThemeContext } from "../contexts/ThemeContext";
+import { GameContainer } from "../styled/GameContainer";
+import { Board } from "../styled/Board";
+import { Cell } from "../styled/Cell";
+import { Button } from "../styled/Button";
 import ResultModal from "../components/ResultModal";
-import GameBoard from "../components/GameBoard";
+import { usePlayerStore } from "../store/playerStore";
 import { checkWinner } from "../utils/gameLogic";
-import { useBotMove } from "../hooks/useBotMove";
 import { useSaveWin } from "../hooks/useSaveWin";
+import { useBotMove } from "../hooks/useBotMove";
 
 export default function GamePage() {
-  const { userId, player1 } = usePlayerStore();
+  const { theme } = useContext(ThemeContext);
+  const { player1, userId } = usePlayerStore();
 
   const [board, setBoard] = useState(Array(9).fill(null));
   const [turn, setTurn] = useState("X");
   const [winner, setWinner] = useState(null);
 
   const saveWin = useSaveWin(userId, player1);
-
   useBotMove(board, turn, winner, setBoard, setTurn);
 
   useEffect(() => {
-    const result = checkWinner(board);
-
-    if (result === "X" || result === "O") {
-      setWinner(result);
-      if (result === "X") saveWin();
+    const r = checkWinner(board);
+    if (r === "X" || r === "O") {
+      setWinner(r);
+      if (r === "X") saveWin();
     } else if (!board.includes(null)) {
       setWinner("draw");
     }
   }, [board]);
 
-  const handleCellClick = (index) => {
-    if (board[index] || winner || turn === "O") return;
-
-    const newBoard = [...board];
-    newBoard[index] = "X";
-    setBoard(newBoard);
+  const click = i => {
+    if (board[i] || winner || turn === "O") return;
+    const c = [...board];
+    c[i] = "X";
+    setBoard(c);
     setTurn("O");
   };
 
-  const resetGame = () => {
+  const reset = () => {
     setBoard(Array(9).fill(null));
     setTurn("X");
     setWinner(null);
   };
 
   return (
-    <div className="game-container">
+    <GameContainer themeMode={theme}>
       <h2>Гравець: {player1}</h2>
 
-      <GameBoard board={board} onCellClick={handleCellClick} />
+      <Board>
+        {board.map((value, i) => (
+          <Cell key={i} themeMode={theme} onClick={() => click(i)}>
+            {value}
+          </Cell>
+        ))}
+      </Board>
 
-      <button className="button" onClick={resetGame}>
+      <Button themeMode={theme} onClick={reset}>
         Почати заново
-      </button>
+      </Button>
 
       {winner && (
         <ResultModal
           winner={
-            winner === "X" ? player1
-              : winner === "O" ? "Бот"
+            winner === "X"
+              ? player1
+              : winner === "O"
+              ? "Бот"
               : "Нічия"
           }
-          onRestart={resetGame}
+          onRestart={reset}
         />
       )}
-    </div>
+    </GameContainer>
   );
 }
