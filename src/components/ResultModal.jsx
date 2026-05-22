@@ -5,6 +5,13 @@ import { useSettingsStore } from "../store/settingsStore";
 import { ModalOverlay, ModalBox } from "../styled/Modal";
 import { Button } from "../styled/Button";
 
+/**
+ * @function ResultModal
+ * @description Модальне вікно результатів гри
+ * @param {Object} props
+ * @param {string} props.winner - Ім'я переможця
+ * @param {Function} props.onRestart - Функція перезапуску
+ */
 export default function ResultModal({ winner, onRestart }) {
   const { theme } = useSettingsStore();
 

@@ -1,3 +1,7 @@
+/**
+ * Генерує або отримує унікальний ідентифікатор клієнта
+ * @returns {string} Унікальний ID
+ */
 export function getClientId() {
   const key = "my_app_client_id_v1";
   let id = localStorage.getItem(key);

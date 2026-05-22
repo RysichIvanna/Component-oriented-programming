@@ -1,3 +1,6 @@
+## Відео-демонстрація документації
+<video src="/media/video/1.mp4" controls width="600"></video>
+
 ## Cookie Consent (GDPR)
 Реалізовано згідно з вимогами GDPR.
 ![Cookie Popup](media/screenshots/1.png)

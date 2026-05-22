@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 
+/**
+ * Хук для отримання списку гравців з сервера
+ * @returns {Object} Об'єкт з даними: players, loading, error
+ */
 export function usePlayers() {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
