@@ -1,5 +1,5 @@
 ## Відео-демонстрація документації
-<video src="/media/video/1.mp4" controls width="600"></video>
+[Клацніть тут, щоб переглянути відео-демонстрацію документації](media/video/1.mp4)
 
 ## Cookie Consent (GDPR)
 Реалізовано згідно з вимогами GDPR.
