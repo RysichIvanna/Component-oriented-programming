@@ -1,3 +1,7 @@
+## Cookie Consent (GDPR)
+Реалізовано згідно з вимогами GDPR.
+![Cookie Popup](media/screenshots/1.png)
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
